@@ -5,42 +5,50 @@
 // to define the behavior of the created window that is in context.
 LRESULT CALLBACK CustWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
-class MyWindows
+class Application
 {
 public:
-	// Default constructor
-	MyWindows();
-	// Default Destructor
-	~MyWindows();
+	
+	class Window
+	{
+	public:
+		// Default constructor
+		Window();
+		// Default Destructor
+		~Window();
 
-/////////// Making it a singleton ///////////
+	private:
+		// A handle for the current window module/instance
+		HINSTANCE newWindowInstanceHandle;
+
+		// Used as an handle to the window created
+		HWND hWnd;
+		// Give it a name, that can be used later.
+		const char* winClassName = "HW3DDX";
+		// Give it a window name that gets displayed in the title bar
+		const char* winTitleName = "3DHWACCDEMO";
+
+		void RegisterAWindowClass(const WNDCLASSEX& winClass);
+		HWND CreateAWindow();
+		void ShowAWindow(const HWND& hwnd);
+
+		int screenWidth = 640;
+		int screenHeight = 480;
+	};
+
+	// Default constructor
+	Application() {};
+	// Default Destructor
+	~Application() {};
+
+	/////////// Making it a singleton ///////////
 	// Deleting copy constructor
-	MyWindows(const MyWindows&) = delete;
+	Application(const Application&) = delete;
 	// Deleting overloaded assignment operator
-	MyWindows& operator=(const MyWindows&) = delete;
-	// MyWindows class instance to access members
-	static MyWindows myWindows;
-/////////////////////////////////////////////
+	Application& operator=(const Application&) = delete;
+	// Application class instance to access members
+	static Application myApp;
+	/////////////////////////////////////////////
 
 	const int ProcessMessage();
-
-protected:
-
-private:
-	// To hold the instance handle of the current window module
-	HINSTANCE newWindowInstanceHandle;
-
-	// Used as an handle to the window created
-	HWND hWnd;
-	// Give it a name, that can be used later.
-	const char* winClassName = "HW3DDX";
-	// Give it a window name that gets displayed in the title bar
-	const char* winTitleName = "3DHWACCDEMO";
-
-	void RegisterAWindowClass(const WNDCLASSEX& winClass);
-	HWND CreateAWindow();
-	void ShowAWindow(const HWND& hwnd);
-
-	int screenWidth = 640;
-	int screenHeight = 480;
 };

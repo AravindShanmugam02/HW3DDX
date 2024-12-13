@@ -1,88 +1,8 @@
 #include "MyWindows.h"
 
-MyWindows MyWindows::myWindows;
+Application Application::myApp;
 
-LRESULT CALLBACK CustWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
-{
-	switch (uMsg)
-	{
-	case WM_CLOSE:
-		break;
-	case WM_DESTROY:
-		PostQuitMessage(99);
-		break;
-	}
-	return DefWindowProc(hWnd, uMsg, wParam, lParam);
-}
-
-MyWindows::MyWindows()
-	: newWindowInstanceHandle(GetModuleHandle(nullptr))
-{
-	// To create a window class
-	WNDCLASSEX winClass = { 0 };
-
-	// Structure configuration part
-	winClass.style = CS_OWNDC;
-	winClass.lpfnWndProc = CustWndProc;
-	winClass.cbClsExtra = 0;
-	winClass.cbWndExtra = 0;
-	winClass.hInstance = newWindowInstanceHandle;
-	winClass.hIcon = nullptr;
-	winClass.hCursor = nullptr;
-	winClass.hbrBackground = nullptr;
-	winClass.lpszMenuName = nullptr;
-	winClass.lpszClassName = winClassName;
-	winClass.hIconSm = nullptr;
-	winClass.cbSize = sizeof(winClass);
-
-	RegisterAWindowClass(winClass);
-	hWnd = CreateAWindow();
-	ShowAWindow(hWnd);
-}
-
-MyWindows::~MyWindows()
-{
-	// Unregister a window class
-	UnregisterClass(winClassName, newWindowInstanceHandle);
-}
-
-void MyWindows::RegisterAWindowClass(const WNDCLASSEX& winClass)
-{
-	// To register a window class
-	RegisterClassEx(&winClass);
-}
-
-HWND MyWindows::CreateAWindow()
-{
-	// To calculate the adjusted size of our screen so that the client region is per our requirement
-	RECT winRect;
-	winRect.top = 200;
-	winRect.bottom = winRect.top + screenHeight;
-	winRect.left = 200;
-	winRect.right = winRect.left + screenWidth;
-
-	DWORD winStyle = WS_CAPTION | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU;
-
-	AdjustWindowRect(&winRect, winStyle, false);
-
-	// To create a window
-	return CreateWindowEx(
-		0, winClassName,
-		winTitleName, winStyle,
-		winRect.top, winRect.left, winRect.right - winRect.left, winRect.bottom - winRect.top,
-		nullptr, nullptr, newWindowInstanceHandle, nullptr);
-}
-
-void MyWindows::ShowAWindow(const HWND& hwnd)
-{
-	if (hWnd != nullptr)
-	{
-		// To show the window
-		ShowWindow(hWnd, SW_SHOW);
-	}
-}
-
-const int MyWindows::ProcessMessage()
+const int Application::ProcessMessage()
 {
 	// To make a message pump
 	// 1. First, need a MSG
@@ -110,5 +30,85 @@ const int MyWindows::ProcessMessage()
 	else
 	{
 		return winMessage.wParam;
+	}
+}
+
+LRESULT CALLBACK CustWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	switch (uMsg)
+	{
+	case WM_CLOSE:
+		break;
+	case WM_DESTROY:
+		PostQuitMessage(99);
+		break;
+	}
+	return DefWindowProc(hWnd, uMsg, wParam, lParam);
+}
+
+Application::Window::Window()
+	: newWindowInstanceHandle(GetModuleHandle(nullptr))
+{
+	// To create a window class
+	WNDCLASSEX winClass = { 0 };
+
+	// Structure configuration part
+	winClass.style = CS_OWNDC;
+	winClass.lpfnWndProc = CustWndProc;
+	winClass.cbClsExtra = 0;
+	winClass.cbWndExtra = 0;
+	winClass.hInstance = newWindowInstanceHandle;
+	winClass.hIcon = nullptr;
+	winClass.hCursor = nullptr;
+	winClass.hbrBackground = nullptr;
+	winClass.lpszMenuName = nullptr;
+	winClass.lpszClassName = winClassName;
+	winClass.hIconSm = nullptr;
+	winClass.cbSize = sizeof(winClass);
+
+	RegisterAWindowClass(winClass);
+	hWnd = CreateAWindow();
+	ShowAWindow(hWnd);
+}
+
+Application::Window::~Window()
+{
+	// Unregister a window class
+	UnregisterClass(winClassName, newWindowInstanceHandle);
+}
+
+void Application::Window::RegisterAWindowClass(const WNDCLASSEX& winClass)
+{
+	// To register a window class
+	RegisterClassEx(&winClass);
+}
+
+HWND Application::Window::CreateAWindow()
+{
+	// To calculate the adjusted size of our screen so that the client region is per our requirement
+	RECT winRect;
+	winRect.top = 200;
+	winRect.bottom = winRect.top + screenHeight;
+	winRect.left = 200;
+	winRect.right = winRect.left + screenWidth;
+
+	DWORD winStyle = WS_CAPTION | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU;
+
+	AdjustWindowRect(&winRect, winStyle, false);
+
+	// To create a window
+	return CreateWindowEx(
+		0, winClassName,
+		winTitleName, winStyle,
+		winRect.top, winRect.left, winRect.right - winRect.left, winRect.bottom - winRect.top,
+		nullptr, nullptr, newWindowInstanceHandle, nullptr);
+}
+
+void Application::Window::ShowAWindow(const HWND& hwnd)
+{
+	if (hWnd != nullptr)
+	{
+		// To show the window
+		ShowWindow(hWnd, SW_SHOW);
 	}
 }
