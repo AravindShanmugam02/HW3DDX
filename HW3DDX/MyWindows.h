@@ -1,5 +1,5 @@
 #pragma once
-#include "SlimWindows.h"
+#include "CustomExceptions.h"
 
 // Custom window procedure to handle multiple messages and
 // to define the behavior of the created window that is in context.

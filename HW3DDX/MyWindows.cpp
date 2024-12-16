@@ -1,6 +1,7 @@
 #include "MyWindows.h"
 
 Application Application::myApp;
+CustomResources CustomResources::myCustResource;
 
 const int Application::ProcessMessage()
 {
@@ -58,12 +59,12 @@ Application::Window::Window()
 	winClass.cbClsExtra = 0;
 	winClass.cbWndExtra = 0;
 	winClass.hInstance = newWindowInstanceHandle;
-	winClass.hIcon = nullptr;
+	winClass.hIcon = CustomResources::myCustResource.bigIcon;
 	winClass.hCursor = nullptr;
 	winClass.hbrBackground = nullptr;
 	winClass.lpszMenuName = nullptr;
 	winClass.lpszClassName = winClassName;
-	winClass.hIconSm = nullptr;
+	winClass.hIconSm = CustomResources::myCustResource.smlIcon;
 	winClass.cbSize = sizeof(winClass);
 
 	RegisterAWindowClass(winClass);

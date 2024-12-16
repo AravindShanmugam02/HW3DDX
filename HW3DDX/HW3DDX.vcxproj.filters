@@ -29,5 +29,27 @@
     <ClInclude Include="MyWindows.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CustomExceptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomResources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HW3DDX.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Icons\Shiba Inu.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Icons\Confused Dog.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

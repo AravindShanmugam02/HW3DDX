@@ -3,7 +3,7 @@
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
 	Application::Window* win1 = new Application::Window;
-	Application::Window* win2 = new Application::Window;
+	/*Application::Window* win2 = new Application::Window;*/
 
 	bool isProgramRunning = true;
 	while (isProgramRunning)
