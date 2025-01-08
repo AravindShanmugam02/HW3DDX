@@ -2,6 +2,11 @@
 #include "SlimWindows.h"
 #include "resource.h"
 
+/////////////////////////////////
+// IDI_ICON1 is Shiba Inu
+// IDI_ICON2 is Confused Dog
+/////////////////////////////////
+
 class CustomResources
 {
 public:
@@ -21,7 +26,11 @@ public:
 
 	HINSTANCE hInstance = GetModuleHandle(nullptr);
 
-	HICON smlIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1)); // Shiba Inu
-	HICON bigIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1)); // Shiba Inu
-	// or can change to different icon if we want
+	// To load custom icons, we have got to pass in non-null hInstance of the exe.
+	// To convert the macro Int to Resource we can use MAKEINTRESOURCE. Also we can manually convert it to LPCSTR. Both works.
+	HICON smlIcon = LoadIcon(hInstance, reinterpret_cast<LPCSTR>(IDI_ICON1)); // MAKEINTRESOURCE
+
+	// To load custom icons, we have got to pass in non-null hInstance of the exe.
+	// To convert the macro Int to Resource we can use MAKEINTRESOURCE. Also we can manually convert it to LPCSTR. Both works.
+	HICON bigIcon = LoadIcon(hInstance, reinterpret_cast<LPCSTR>(IDI_ICON2)); // MAKEINTRESOURCE
 };

@@ -8,9 +8,9 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	bool isProgramRunning = true;
 	while (isProgramRunning)
 	{
-		if (Application::myApp.ProcessMessage() == 99
-			|| Application::myApp.ProcessMessage() == -1
-			|| Application::myApp.ProcessMessage() == 0)
+		if (Application::myApp.ProcessMessage(*win1) == 99
+			|| Application::myApp.ProcessMessage(*win1) == -1
+			|| Application::myApp.ProcessMessage(*win1) == 0)
 		{
 			// (ashanmugam [TODO] To handle better)
 			isProgramRunning = false;

@@ -1,16 +1,13 @@
 #pragma once
 #include "CustomExceptions.h"
-
-// Custom window procedure to handle multiple messages and
-// to define the behavior of the created window that is in context.
-LRESULT CALLBACK CustWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+#include "Keyboard.h"
 
 class Application
 {
 public:
-	
 	class Window
 	{
+		friend class Application;
 	public:
 		// Default constructor
 		Window();
@@ -50,5 +47,12 @@ public:
 	static Application myApp;
 	/////////////////////////////////////////////
 
-	const int ProcessMessage();
+	const int ProcessMessage(const Window& win);
+
+	Keyboard keyboard;
+
+private:
+	// Custom window procedure to handle multiple messages and
+	// to define the behavior of the created window that is in context.
+	static LRESULT CALLBACK CustWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 };
