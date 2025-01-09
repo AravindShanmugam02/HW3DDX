@@ -94,7 +94,7 @@ public:
 	bool IsAutoRepeatEnabled() { return autoRepeatEnabled; }
 #pragma endregion
 
-#pragma region Functions that the MyWindows Class would use. Mostly private:
+#pragma region Functions that the Application Class would use. Mostly private:
 private:
 	void OnKeyPressed(unsigned char keycode);
 	void OnKeyReleased(unsigned char keycode);

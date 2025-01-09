@@ -1,18 +1,21 @@
 #pragma once
 #include "CustomExceptions.h"
 #include "Keyboard.h"
+#include "Mouse.h"
+#include <sstream>
 
 class Application
 {
 public:
 	class Window
 	{
-		friend class Application;
 	public:
 		// Default constructor
 		Window();
 		// Default Destructor
 		~Window();
+
+		void SetWindowTitle();
 
 	private:
 		// A handle for the current window module/instance
@@ -28,9 +31,6 @@ public:
 		void RegisterAWindowClass(const WNDCLASSEX& winClass);
 		HWND CreateAWindow();
 		void ShowAWindow(const HWND& hwnd);
-
-		int screenWidth = 640;
-		int screenHeight = 480;
 	};
 
 	// Default constructor
@@ -47,12 +47,16 @@ public:
 	static Application myApp;
 	/////////////////////////////////////////////
 
-	const int ProcessMessage(const Window& win);
+	const int ProcessMessage(Window& win);
 
 	Keyboard keyboard;
+	Mouse mouse;
 
 private:
 	// Custom window procedure to handle multiple messages and
 	// to define the behavior of the created window that is in context.
 	static LRESULT CALLBACK CustWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+
+	int screenWidth = 640;
+	int screenHeight = 480;
 };
