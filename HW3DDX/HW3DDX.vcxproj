@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="MyApplication.cpp" />
     <ClCompile Include="MyWindows.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -161,6 +162,7 @@
     <ClInclude Include="CustomResources.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Mouse.h" />
+    <ClInclude Include="MyApplication.h" />
     <ClInclude Include="MyWindows.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SlimWindows.h" />
