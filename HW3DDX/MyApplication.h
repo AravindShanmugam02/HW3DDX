@@ -18,12 +18,15 @@ public:
 	// Deleting copy constructor
 	Application(const Application&) = delete;
 
+	bool Run();
 	bool CreateAWindow(Application& _myApp);
+
+private:
 	const int ProcessMessage();
+	bool RunAFrame();
 
 	Window* window;
 
-private:
 	// Custom window procedure to handle multiple messages and
 	// to define the behavior of the created window that is in context.
 	static LRESULT CALLBACK CustWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);

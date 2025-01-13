@@ -6,13 +6,26 @@ Mouse Application::mouse;
 
 Application::Application()
 {
-	// empty for now
+	window = nullptr;
 }
 
 bool Application::CreateAWindow(Application& _myApp)
 {
-	window = new Window(_myApp);
+	window = new Window(*this);
 	return (window != nullptr);
+}
+
+bool Application::Run()
+{
+	const int retVal = ProcessMessage();
+	if (retVal == 99
+		|| retVal == -1
+		|| retVal == 0)
+	{
+		return false;
+	}
+	
+	return (RunAFrame() == true); // (ashanmugam [TODO] handle this better as what if there is an error or warning or softassert)
 }
 
 const int Application::ProcessMessage()
@@ -33,9 +46,6 @@ const int Application::ProcessMessage()
 		TranslateMessage(&winMessage);
 		// 4. Dispatch the MSG to Win32's window procedure for the window created.
 		DispatchMessage(&winMessage);
-
-		// Testing keyboard and mouse system by setting title
-		window->SetWindowTitle();
 	}
 
 	if (winRetCode == -1)
@@ -47,6 +57,13 @@ const int Application::ProcessMessage()
 	{
 		return winMessage.wParam;
 	}
+}
+
+bool Application::RunAFrame()
+{
+	// Testing keyboard and mouse system by setting title
+	window->SetWindowTitle();
+	return true;
 }
 
 LRESULT CALLBACK Application::CustWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)

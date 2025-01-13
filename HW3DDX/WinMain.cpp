@@ -5,15 +5,13 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	Application* myApp = new Application();
 	myApp->CreateAWindow(*myApp);
 
-	bool isProgramRunning = true;
-	while (isProgramRunning)
+	bool isApplicationRunning = true;
+	while (isApplicationRunning)
 	{
-		if (myApp->ProcessMessage() == 99
-			|| myApp->ProcessMessage() == -1
-			|| myApp->ProcessMessage() == 0)
+		if (!myApp->Run())
 		{
 			// (ashanmugam [TODO] To handle better)
-			isProgramRunning = false;
+			isApplicationRunning = false;
 		}
 	}
 
