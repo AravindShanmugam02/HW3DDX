@@ -11,7 +11,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	{
 		if (!app->Run())
 		{
-			// (ashanmugam [TODO] To handle better)
+			// (ashanmugam [TO-DO] To handle better)
 			isApplicationRunning = false;
 		}
 	}

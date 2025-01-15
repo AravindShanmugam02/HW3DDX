@@ -3,7 +3,7 @@
 
 using namespace std::chrono;
 
-/* (ashanmugam [TODO] Fix My TimeSteps)
+/* (ashanmugam [TO-DO] Fix My TimeSteps)
 * I tried my best to understand Gaffer On Games article about Fix your timestep.
 * Unfortunately, I don't understand it beyond the point of using variable delta time.
 * I have it implemented in my CalculateDeltaTime function.
