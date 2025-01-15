@@ -7,11 +7,18 @@ Mouse Application::mouse;
 Application::Application()
 {
 	window = nullptr;
+	timer = nullptr;
 }
 
-bool Application::CreateAWindow(Application& _myApp)
+bool Application::CreateAWindow(Application& _myApp, Timer& _myTimer)
 {
-	window = new Window(*this);
+	timer = &_myTimer;
+
+	if (timer != nullptr)
+	{
+		window = new Window(*this, *timer);
+	}
+
 	return (window != nullptr);
 }
 
@@ -24,7 +31,7 @@ bool Application::Run()
 	{
 		return false;
 	}
-	
+
 	return (RunAFrame() == true); // (ashanmugam [TODO] handle this better as what if there is an error or warning or softassert)
 }
 
@@ -61,7 +68,7 @@ const int Application::ProcessMessage()
 
 bool Application::RunAFrame()
 {
-	// Testing keyboard and mouse system by setting title
+	timer->UpdateTime();
 	window->SetWindowTitle();
 	return true;
 }

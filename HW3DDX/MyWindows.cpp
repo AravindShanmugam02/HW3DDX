@@ -2,9 +2,10 @@
 
 CustomResources CustomResources::myCustResource;
 
-Window::Window(Application& _myApp)
+Window::Window(Application& _myApp, Timer& _myTimer)
 	: newWindowInstanceHandle(GetModuleHandle(nullptr)),
-	myApp(&_myApp)
+	app(&_myApp),
+	timer(&_myTimer)
 {
 	// To create a window class
 	WNDCLASSEX winClass = { 0 };
@@ -45,9 +46,9 @@ HWND Window::CreateAWindow()
 	// To calculate the adjusted size of our screen so that the client region is per our requirement
 	RECT winRect;
 	winRect.top = 200;
-	winRect.bottom = winRect.top + myApp->screenHeight;
+	winRect.bottom = winRect.top + app->screenHeight;
 	winRect.left = 200;
-	winRect.right = winRect.left + myApp->screenWidth;
+	winRect.right = winRect.left + app->screenWidth;
 
 	DWORD winStyle = WS_CAPTION | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU;
 
@@ -75,7 +76,7 @@ void Window::SetWindowTitle()
 	// Testing the keyboard events
 	std::ostringstream keyboardString;
 	{
-		if (myApp->keyboard.IsKeyboardKeyPressed(VK_MENU))
+		if (app->keyboard.IsKeyboardKeyPressed(VK_MENU))
 		{
 			keyboardString << "ATL Key Pressed";
 		}
@@ -88,7 +89,7 @@ void Window::SetWindowTitle()
 	// Testing mouse events
 	std::ostringstream mouseString;
 	{
-		const auto e = myApp->mouse.ReadMouseEvent();
+		const auto e = app->mouse.ReadMouseEvent();
 		if (e.GetType() == Mouse::MouseEvents::EventType::MOVE)
 		{
 			mouseString <<
@@ -112,9 +113,15 @@ void Window::SetWindowTitle()
 	{
 		mouseScrollString <<
 			" || Mouse Scroll " <<
-			(myApp->mouse.GetMouseScrollsNumber() >= 0 ? "UP: " : "DOWN: ") <<
-			myApp->mouse.GetMouseScrollsNumber();
+			(app->mouse.GetMouseScrollsNumber() >= 0 ? "UP: " : "DOWN: ") <<
+			app->mouse.GetMouseScrollsNumber();
 	}
 
-	SetWindowText(hWnd, (keyboardString.str() + mouseString.str() + mouseScrollString.str()).c_str());
+	// Testing FPS
+	std::ostringstream fpsString;
+	{
+		fpsString << " || FPS: " << timer->GetFPS();
+	}
+
+	SetWindowText(hWnd, (keyboardString.str() + mouseString.str() + mouseScrollString.str() + fpsString.str()).c_str());
 }

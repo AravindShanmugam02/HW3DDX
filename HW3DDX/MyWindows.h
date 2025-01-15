@@ -7,7 +7,7 @@ public:
 	// Default constructor
 	Window() {};
 	// A constructor
-	Window(Application& _myApp);
+	Window(Application& _myApp, Timer& _myTimer);
 	// Default Destructor
 	~Window();
 
@@ -28,5 +28,6 @@ private:
 	HWND CreateAWindow();
 	void ShowAWindow(const HWND& hwnd);
 
-	Application* myApp;
+	Application* app;
+	Timer* timer;
 };

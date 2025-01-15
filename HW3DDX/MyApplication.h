@@ -2,6 +2,7 @@
 #include "CustomExceptions.h"
 #include "Keyboard.h"
 #include "Mouse.h"
+#include "Timer.h"
 #include <sstream>
 
 class Window;
@@ -19,13 +20,14 @@ public:
 	Application(const Application&) = delete;
 
 	bool Run();
-	bool CreateAWindow(Application& _myApp);
+	bool CreateAWindow(Application& _myApp, Timer& _myTimer);
 
 private:
 	const int ProcessMessage();
 	bool RunAFrame();
 
 	Window* window;
+	Timer* timer;
 
 	// Custom window procedure to handle multiple messages and
 	// to define the behavior of the created window that is in context.
