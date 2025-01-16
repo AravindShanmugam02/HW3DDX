@@ -25,9 +25,7 @@ bool Application::CreateAWindow(Application& _myApp, Timer& _myTimer)
 bool Application::Run()
 {
 	const int retVal = ProcessMessage();
-	if (retVal == 99
-		|| retVal == -1
-		|| retVal == 0)
+	if (retVal == 99)
 	{
 		return false;
 	}
@@ -41,43 +39,24 @@ const int Application::ProcessMessage()
 	// 1. First, need a MSG
 	MSG winMessage;
 
-	// To handle different MSG code that is returned from GetMessage().
-	// Therefore, we declare a BOOL to hold the returned code.
-	BOOL winRetCode;
-
 	// We use while so that the window stays on as long as we are quitting or it runs into error.
-	while (// 2. Second, pass the MSG to GetMessage()
-		(winRetCode = GetMessage(&winMessage, nullptr, 0, 0)) > 0)
-		/*
-		* (ashanmugam [ISSUE])
-		* The issue is GetMessage() blocks the thread and flow until it gets an event message.
-		* This results in the timer->UpdateTime() not run at all and that is why the FPS or deltaTime is not changed.
-		* We display FPS on the window title bar and it is not updating because of this issue.
-		* Technically it is not an issue, but a misuse of this GetMessage for wrong purpose.
-		* And the control just goes within this while loop that RunAFrame() doesn't run at all and the window title remains unchanged.
-		* 
-		* You might think bringing RunAFrame() call inside this shilw loop.
-		* But the problem is, once the control goes to GetMessage() it is going to wait until there is a window event.
-		* Only then it will go to TranslateMessage, DispatchMessage and then to RunAFrame() call if we were including it here.
-		* Which means there should be an event all the time for the control to get out of GetMessage() and go to other parts of code.
-		* This is why GetMessage() is not an ideal thing for an engine.
-		*/
+	// 2. Second, pass the MSG to PeekMessage()
+	while (PeekMessage(&winMessage, nullptr, 0, 0, PM_REMOVE))
+		// PeekMessage() returns 0 if no messages are there and 1 if there are messages.
+		// Unlike GetMessage() it doesn't give anything about errors.
 	{
+		if (winMessage.message == WM_QUIT)
+		{
+			return winMessage.wParam;
+		}
+
 		// 3. Translate the MSG. (ashanmugam [TO-DO] To Find More?)
 		TranslateMessage(&winMessage);
 		// 4. Dispatch the MSG to Win32's window procedure for the window created.
 		DispatchMessage(&winMessage);
 	}
 
-	if (winRetCode == -1)
-	{
-		// (ashanmugam [TO-DO] To handle error)
-		return -1;
-	}
-	else
-	{
-		return winMessage.wParam;
-	}
+	return winMessage.wParam;
 }
 
 bool Application::RunAFrame()

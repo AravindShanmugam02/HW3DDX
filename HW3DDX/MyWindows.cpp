@@ -106,6 +106,15 @@ void Window::SetWindowTitle()
 				", " << e.GetMouseYPositionForEvent() <<
 				")";
 		}
+		// even if there is no event for move or drag, just display old position
+		else
+		{
+			mouseString <<
+				" || Mouse DRAG position: (" <<
+				app->mouse.GetMouseXPosition() <<
+				", " << app->mouse.GetMouseXPosition() <<
+				")";
+		}
 	}
 
 	// Testing mouse scroll events
