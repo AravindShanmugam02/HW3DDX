@@ -1,5 +1,6 @@
 #pragma once
 #include "MyApplication.h"
+#include "Graphics.h"
 
 class Window
 {
@@ -12,7 +13,7 @@ public:
 	~Window();
 
 	void SetWindowTitle();
-
+	Graphics& GetGraphics() { return *gfx; };
 private:
 	// A handle for the current window module/instance
 	HINSTANCE newWindowInstanceHandle;
@@ -30,4 +31,11 @@ private:
 
 	Application* app;
 	Timer* timer;
+
+	/*
+	ashan: [INFO] We are making it to be unique ptr as we want to defer its initialization as
+	graphics constructor needs a valid handle to window (HWND).
+	It is only obtained after Window constructor gets executed.
+	*/
+	std::unique_ptr<Graphics> gfx;
 };

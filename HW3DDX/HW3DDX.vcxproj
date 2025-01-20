@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="MyApplication.cpp" />
@@ -161,6 +162,7 @@
   <ItemGroup>
     <ClInclude Include="CustomExceptions.h" />
     <ClInclude Include="CustomResources.h" />
+    <ClInclude Include="Graphics.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="MyApplication.h" />

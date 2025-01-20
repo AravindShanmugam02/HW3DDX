@@ -63,6 +63,11 @@ bool Application::RunAFrame()
 {
 	timer->UpdateTime();
 	window->SetWindowTitle();
+
+	float c = sin(mouse.GetMouseXPosition()) / cos(mouse.GetMouseYPosition());
+	float c1 = cos(mouse.GetMouseXPosition()) / sin(mouse.GetMouseYPosition());
+	window->GetGraphics().ClearRenderTargetView(c, c1, c, 0.5f);
+	window->GetGraphics().PresentFrame();
 	return true;
 }
 

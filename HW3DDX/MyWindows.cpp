@@ -27,6 +27,9 @@ Window::Window(Application& _myApp, Timer& _myTimer)
 	RegisterAWindowClass(winClass);
 	hWnd = CreateAWindow();
 	ShowAWindow(hWnd);
+
+	// Create graphics for this Window
+	gfx = std::make_unique<Graphics>(hWnd);
 }
 
 Window::~Window()
@@ -110,7 +113,7 @@ void Window::SetWindowTitle()
 		else
 		{
 			mouseString <<
-				" || Mouse DRAG position: (" <<
+				" || Mouse position: (" <<
 				app->mouse.GetMouseXPosition() <<
 				", " << app->mouse.GetMouseXPosition() <<
 				")";
